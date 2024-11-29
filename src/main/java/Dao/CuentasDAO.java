@@ -33,7 +33,7 @@ public class CuentasDAO {
     
 
     //METODO PARA MOSTRAR
-    public ArrayList<Cuentas> Mostrar() throws SQLException{
+    public ArrayList<Cuentas> Mostrar(){
         this.listaCuentas = new ArrayList<>();
         try( Connection connection = this.conexion.getConexion();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_MOSTRAR);){
@@ -59,18 +59,23 @@ public class CuentasDAO {
     }
     
 //    //METODO PARA INSERTAR
-//    public boolean insertar(Cuentas cuenta) throws SQLException{
-//        boolean resultado = false;
-//        try (Connection connection = this.conexion.getConexion(); 
-//            PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
-//            preparedStatement.setString(1, bartender.getNombre());
-//            preparedStatement.setInt(2, bartender.getAniosExperiencia());
-//            resultado = preparedStatement.executeUpdate() > 0;
-//        } catch (SQLException ex) {
-//            java.util.logging.Logger.getLogger(BartenderDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } finally {
-//            this.conexion.cerrarConexiones();
-//        }
-//        return resultado;
-//    }
+    public boolean insertar(Cuentas cuenta){
+        boolean resultado = false;
+        try (Connection connection = this.conexion.getConexion(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
+            preparedStatement.setString(1, cuenta.getCodigo());
+            preparedStatement.setString(2, cuenta.getNombre());
+            preparedStatement.setString(3, cuenta.getTipo());
+            preparedStatement.setDouble(4, cuenta.getSaldo_inicial());
+            preparedStatement.setDouble(5, cuenta.getSaldo_actual());
+            preparedStatement.setDate(6,new java.sql.Date(cuenta.getCreado_en().getTime()));
+            preparedStatement.setBoolean(7, cuenta.isSaldo_contrario());
+            resultado = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(CuentasDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            this.conexion.cerrarConexiones();
+        }
+        return resultado;
+    }
 }

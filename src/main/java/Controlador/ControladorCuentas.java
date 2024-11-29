@@ -9,8 +9,9 @@ import Dao.CuentasDAO;
 import Pantallas.CatalogoDeCuentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,13 +23,15 @@ public class ControladorCuentas implements ActionListener{
     private ArrayList<Cuentas> listaCuentas;
     private CuentasDAO dao;
     private DefaultTableModel modelo;
+    private boolean funciono = false;
 
-    public ControladorCuentas() throws SQLException{
+    public ControladorCuentas(){
         this.frmvista = new CatalogoDeCuentas();
         this.frmvista.setVisible(true);
         
         this.listaCuentas = new ArrayList<>();
         this.dao = new CuentasDAO();
+     
         
         this.modelo = new DefaultTableModel();
         this.modelo.addColumn("Id");
@@ -40,16 +43,24 @@ public class ControladorCuentas implements ActionListener{
         this.modelo.addColumn("CREADO EN");
         this.modelo.addColumn("SALDO CONTRARIO");
         this.frmvista.tabla.setModel(modelo);
+        
+        this.frmvista.txtid.setVisible(false);
+        
+        this.frmvista.btnregistrarcuenta.addActionListener(this);
+        this.frmvista.btneliminarcuenta.addActionListener(this);
+        this.frmvista.btnmodificarcuenta.addActionListener(this);
         mostrarDatos();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (e.getSource() == this.frmvista.btnregistrarcuenta) {
+            Registrar();
+        }
     }
-    
+
     //METODO PARA MOSTRAR LOS DATOS EN LA TABLA
-    public void mostrarDatos() throws SQLException{
+    public void mostrarDatos(){
         this.listaCuentas = this.dao.Mostrar();
         for (Cuentas cuenta : listaCuentas) {
             Object datos[] = {
@@ -66,5 +77,46 @@ public class ControladorCuentas implements ActionListener{
         }
         this.frmvista.tabla.setModel(modelo);
     }
+
+    //METODO PARA INSERTAR
+    public void Registrar(){
+        Cuentas cuenta = new Cuentas();
+        cuenta.setCodigo(this.frmvista.txtcodigocuenta.getText());
+        cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());
+        cuenta.setTipo(this.frmvista.combotipocuenta.getSelectedItem().toString());
+        cuenta.setSaldo_inicial(Double.parseDouble(this.frmvista.txtsaldoinicial.getText()));
+        cuenta.setSaldo_actual(Double.parseDouble(this.frmvista.txtsaldoactual.getText()));
+        
+        java.util.Date utilDate = this.frmvista.calendario.getDatoFecha();
+        if(utilDate != null){
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            cuenta.setCreado_en(sqlDate);
+        }else{
+            JOptionPane.showMessageDialog(frmvista, utilDate);
+        }
+        
+        if (this.frmvista.radiosi.isSelected()) {
+            cuenta.setSaldo_contrario(true);
+        } else if (this.frmvista.radiono.isSelected()) {
+            cuenta.setSaldo_contrario(false);
+        }
+        this.funciono = this.dao.insertar(cuenta);
+        if (funciono) {
+            //DesktopNotify.showDesktopMessage("Éxito", "Bartender registrado con éxito", DesktopNotify.SUCCESS, 3000);
+            this.modelo.setRowCount(0);
+            mostrarDatos();
+            limpiar();
+        } else {
+            //DesktopNotify.showDesktopMessage("Error", "No se pudo registrar el Bartender", DesktopNotify.ERROR, 3000);
+        }
+    }
+    
+    public void limpiar(){
+        this.frmvista.txtcodigocuenta.setText("");
+        this.frmvista.txtnombrecuenta.setText("");
+        this.frmvista.txtsaldoinicial.setText("");
+        this.frmvista.txtsaldoactual.setText("");
+    }
+
     
 }
