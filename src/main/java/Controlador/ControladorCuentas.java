@@ -39,11 +39,8 @@ public class ControladorCuentas implements ActionListener{
         this.modelo.addColumn("Id");
         this.modelo.addColumn("CODIGO");
         this.modelo.addColumn("NOMBRE");
+        this.modelo.addColumn("DESCRIPCION");
         this.modelo.addColumn("TIPO");
-        this.modelo.addColumn("SALDO INICIAL");
-        this.modelo.addColumn("SALDO ACTUAL");
-        this.modelo.addColumn("CREADO EN");
-        this.modelo.addColumn("SALDO CONTRARIO");
         this.frmvista.tabla.setModel(modelo);
         
         this.frmvista.txtid.setVisible(false);
@@ -66,14 +63,11 @@ public class ControladorCuentas implements ActionListener{
         this.listaCuentas = this.dao.Mostrar();
         for (Cuentas cuenta : listaCuentas) {
             Object datos[] = {
-                cuenta.getId_cuenta(),
-                cuenta.getCodigo(),
+                cuenta.getIdcuenta(),
+                cuenta.getCodigocuenta(),
                 cuenta.getNombre(),
-                cuenta.getTipo(),
-                cuenta.getSaldo_inicial(),
-                cuenta.getSaldo_actual(),
-                cuenta.getCreado_en(),
-                cuenta.isSaldo_contrario()
+                cuenta.getDescripcion(),
+                cuenta.getTipo()
             };
             this.modelo.addRow(datos);
         }
@@ -83,25 +77,26 @@ public class ControladorCuentas implements ActionListener{
     //METODO PARA INSERTAR
     public void Registrar(){
         Cuentas cuenta = new Cuentas();
-        cuenta.setCodigo(this.frmvista.txtcodigocuenta.getText());
+        cuenta.setCodigocuenta(Integer.parseInt(this.frmvista.txtcodigocuenta.getText()));
         cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());
+        cuenta.setDescripcion(this.frmvista.txtdescripcion.getText());
         cuenta.setTipo(this.frmvista.combotipocuenta.getSelectedItem().toString());
-        cuenta.setSaldo_inicial(Double.parseDouble(this.frmvista.txtsaldoinicial.getText()));
-        cuenta.setSaldo_actual(Double.parseDouble(this.frmvista.txtsaldoactual.getText()));
-        
-        java.util.Date utilDate = this.frmvista.calendario.getDatoFecha();
-        if(utilDate != null){
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            cuenta.setCreado_en(sqlDate);
-        }else{
-            JOptionPane.showMessageDialog(frmvista, utilDate);
-        }
-        
-        if (this.frmvista.radiosi.isSelected()) {
-            cuenta.setSaldo_contrario(true);
-        } else if (this.frmvista.radiono.isSelected()) {
-            cuenta.setSaldo_contrario(false);
-        }
+//        cuenta.setSaldo_inicial(Double.parseDouble(this.frmvista.txtsaldoinicial.getText()));
+//        cuenta.setSaldo_actual(Double.parseDouble(this.frmvista.txtsaldoactual.getText()));
+//        
+//        java.util.Date utilDate = this.frmvista.calendario.getDatoFecha();
+//        if(utilDate != null){
+//            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+//            cuenta.setCreado_en(sqlDate);
+//        }else{
+//            JOptionPane.showMessageDialog(frmvista, utilDate);
+//        }
+//        
+//        if (this.frmvista.radiosi.isSelected()) {
+//            cuenta.setSaldo_contrario(true);
+//        } else if (this.frmvista.radiono.isSelected()) {
+//            cuenta.setSaldo_contrario(false);
+//        }
         this.funciono = this.dao.insertar(cuenta);
         if (funciono) {
             //DesktopNotify.showDesktopMessage("Éxito", "Bartender registrado con éxito", DesktopNotify.SUCCESS, 3000);
@@ -116,8 +111,6 @@ public class ControladorCuentas implements ActionListener{
     public void limpiar(){
         this.frmvista.txtcodigocuenta.setText("");
         this.frmvista.txtnombrecuenta.setText("");
-        this.frmvista.txtsaldoinicial.setText("");
-        this.frmvista.txtsaldoactual.setText("");
     }
 
     
