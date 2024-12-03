@@ -24,6 +24,8 @@ public class ControladorCuentas implements ActionListener{
     private CuentasDAO dao;
     private DefaultTableModel modelo;
     private boolean funciono = false;
+    
+    
 
     public ControladorCuentas(){
         this.frmvista = new CatalogoDeCuentas();
