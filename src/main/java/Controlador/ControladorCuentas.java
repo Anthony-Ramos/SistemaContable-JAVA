@@ -10,7 +10,10 @@ import Pantallas.CatalogoDeCuentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,23 +21,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Marlo
  */
-public class ControladorCuentas implements ActionListener{
+public class ControladorCuentas implements ActionListener {
+
     private CatalogoDeCuentas frmvista;
     private ArrayList<Cuentas> listaCuentas;
     private CuentasDAO dao;
     private DefaultTableModel modelo;
     private boolean funciono = false;
-    
-    
 
-    public ControladorCuentas(){
+    public ControladorCuentas() {
         this.frmvista = new CatalogoDeCuentas();
         this.frmvista.setVisible(true);
-        
+
         this.listaCuentas = new ArrayList<>();
         this.dao = new CuentasDAO();
-     
-        
+
         this.modelo = new DefaultTableModel();
         this.modelo.addColumn("Id");
         this.modelo.addColumn("CODIGO");
@@ -42,9 +43,22 @@ public class ControladorCuentas implements ActionListener{
         this.modelo.addColumn("DESCRIPCION");
         this.modelo.addColumn("TIPO");
         this.frmvista.tabla.setModel(modelo);
-        
+
+        // Ocultar la columna "Id" en la tabla
+        this.frmvista.tabla.getColumnModel().getColumn(0).setMinWidth(0);
+        this.frmvista.tabla.getColumnModel().getColumn(0).setMaxWidth(0);
+        this.frmvista.tabla.getColumnModel().getColumn(0).setWidth(0);
+
         this.frmvista.txtid.setVisible(false);
-        
+
+        // Agregar MouseListener a la tabla
+        this.frmvista.tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cargarDatosEnCampos();
+            }
+        });
+
         this.frmvista.btnregistrarcuenta.addActionListener(this);
         this.frmvista.btneliminarcuenta.addActionListener(this);
         this.frmvista.btnmodificarcuenta.addActionListener(this);
@@ -56,10 +70,16 @@ public class ControladorCuentas implements ActionListener{
         if (e.getSource() == this.frmvista.btnregistrarcuenta) {
             Registrar();
         }
+        if (e.getSource() == this.frmvista.btnmodificarcuenta) {
+            Actualizar();
+        }
+        if (e.getSource() == this.frmvista.btneliminarcuenta) {
+            Eliminar();
+        }
     }
 
     //METODO PARA MOSTRAR LOS DATOS EN LA TABLA
-    public void mostrarDatos(){
+    public void mostrarDatos() {
         this.listaCuentas = this.dao.Mostrar();
         for (Cuentas cuenta : listaCuentas) {
             Object datos[] = {
@@ -75,28 +95,13 @@ public class ControladorCuentas implements ActionListener{
     }
 
     //METODO PARA INSERTAR
-    public void Registrar(){
+    public void Registrar() {
         Cuentas cuenta = new Cuentas();
         cuenta.setCodigocuenta(Integer.parseInt(this.frmvista.txtcodigocuenta.getText()));
         cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());
         cuenta.setDescripcion(this.frmvista.txtdescripcion.getText());
         cuenta.setTipo(this.frmvista.combotipocuenta.getSelectedItem().toString());
-//        cuenta.setSaldo_inicial(Double.parseDouble(this.frmvista.txtsaldoinicial.getText()));
-//        cuenta.setSaldo_actual(Double.parseDouble(this.frmvista.txtsaldoactual.getText()));
-//        
-//        java.util.Date utilDate = this.frmvista.calendario.getDatoFecha();
-//        if(utilDate != null){
-//            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-//            cuenta.setCreado_en(sqlDate);
-//        }else{
-//            JOptionPane.showMessageDialog(frmvista, utilDate);
-//        }
-//        
-//        if (this.frmvista.radiosi.isSelected()) {
-//            cuenta.setSaldo_contrario(true);
-//        } else if (this.frmvista.radiono.isSelected()) {
-//            cuenta.setSaldo_contrario(false);
-//        }
+
         this.funciono = this.dao.insertar(cuenta);
         if (funciono) {
             //DesktopNotify.showDesktopMessage("Éxito", "Bartender registrado con éxito", DesktopNotify.SUCCESS, 3000);
@@ -107,11 +112,91 @@ public class ControladorCuentas implements ActionListener{
             //DesktopNotify.showDesktopMessage("Error", "No se pudo registrar el Bartender", DesktopNotify.ERROR, 3000);
         }
     }
-    
-    public void limpiar(){
+
+    public void limpiar() {
         this.frmvista.txtcodigocuenta.setText("");
         this.frmvista.txtnombrecuenta.setText("");
     }
 
-    
+    // MÉTODO PARA ACTUALIZAR UNA CUENTA
+    public void Actualizar() {
+        // Crear un objeto de tipo Cuentas
+        Cuentas cuenta = new Cuentas();
+
+        // Asignar valores desde la vista al objeto
+        cuenta.setCodigocuenta(Integer.parseInt(this.frmvista.txtcodigocuenta.getText())); // Código de cuenta
+        cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());                        // Nombre de la cuenta
+        cuenta.setDescripcion(this.frmvista.txtdescripcion.getText());                   // Descripción
+        cuenta.setTipo(this.frmvista.combotipocuenta.getSelectedItem().toString());      // Tipo
+        cuenta.setIdcuenta(Integer.parseInt(this.frmvista.txtid.getText()));             // ID de la cuenta
+
+        try {
+            // Llamar al método actualizar del DAO y guardar el resultado
+            this.funciono = this.dao.actualizar(cuenta);
+
+            // Validar si la actualización fue exitosa
+            if (funciono) {
+                JOptionPane.showMessageDialog(frmvista, "Cuenta actualizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                this.modelo.setRowCount(0); // Limpiar el modelo de la tabla
+                mostrarDatos();             // Mostrar los datos actualizados en la tabla
+                limpiar();                  // Limpiar los campos de entrada
+            } else {
+                JOptionPane.showMessageDialog(frmvista, "No se pudo actualizar la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCuentas.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(frmvista, "Error al actualizar la cuenta: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void Eliminar() {
+        // Obtener el ID de la cuenta desde el campo oculto (txtid)
+        int idCuenta = Integer.parseInt(this.frmvista.txtid.getText());
+
+        // Llamar al método eliminar del DAO
+        boolean resultado = this.dao.eliminar(idCuenta);
+
+        if (resultado) {
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Cuenta eliminada con éxito.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            // Limpiar la tabla y volver a cargar los datos
+            this.modelo.setRowCount(0); // Limpiar tabla
+            mostrarDatos(); // Recargar datos
+            limpiar(); // Limpiar campos del formulario
+        } else {
+            // Mostrar mensaje de error
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No se pudo eliminar la cuenta.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    //metodo para cargar datos en campos
+    private void cargarDatosEnCampos() {
+        // Obtener la fila seleccionada
+        int filaSeleccionada = this.frmvista.tabla.getSelectedRow();
+
+        // Verificar que se haya seleccionado una fila
+        if (filaSeleccionada >= 0) {
+            // Obtener los datos de la fila seleccionada
+            this.frmvista.txtid.setText(this.modelo.getValueAt(filaSeleccionada, 0).toString());         // ID
+            this.frmvista.txtcodigocuenta.setText(this.modelo.getValueAt(filaSeleccionada, 1).toString()); // Código
+            this.frmvista.txtnombrecuenta.setText(this.modelo.getValueAt(filaSeleccionada, 2).toString()); // Nombre
+            this.frmvista.txtdescripcion.setText(this.modelo.getValueAt(filaSeleccionada, 3).toString()); // Descripción
+            this.frmvista.combotipocuenta.setSelectedItem(this.modelo.getValueAt(filaSeleccionada, 4).toString()); // Tipo
+        } else {
+            JOptionPane.showMessageDialog(frmvista, "Por favor, selecciona un registro válido.");
+        }
+    }
+
 }
