@@ -26,8 +26,7 @@ public class CuentasDAO {
     
     //Consultas SQL
     private static final String SQL_MOSTRAR = "SELECT * FROM cuentas";
-    private static final String SQL_INSERTAR = "INSERT INTO cuentas(codigo, nombre, tipo, saldo_inicial, saldo_actual, creado_en, saldo_contrario)\n"
-            + "VALUES (?,?,?,?,?,?,?);";
+    private static final String SQL_INSERTAR = "INSERT INTO cuentas (codigocuenta, nombre, descripcion, tipo) VALUES (?, ?, ?, ?);";
     private static final String SQL_ACTUALIZAR = "";
     private static final String SQL_ELIMINAR = "DELETE FROM cuentas WHERE id_cuenta =?";
     
@@ -40,14 +39,12 @@ public class CuentasDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 Cuentas cuenta = new Cuentas();
-                cuenta.setId_cuenta(rs.getInt("id_cuenta"));
-                cuenta.setCodigo(rs.getString("codigo"));
+                cuenta.setIdcuenta(rs.getInt("idcuenta"));
+                cuenta.setCodigocuenta(Integer.parseInt(rs.getString("codigocuenta")));
                 cuenta.setNombre(rs.getString("nombre"));
+                cuenta.setDescripcion(rs.getString("descripcion"));
                 cuenta.setTipo(rs.getString("tipo"));
-                cuenta.setSaldo_inicial(rs.getDouble("saldo_inicial"));
-                cuenta.setSaldo_actual(rs.getDouble("saldo_actual"));
-                cuenta.setCreado_en(rs.getDate("creado_en"));
-                cuenta.setSaldo_contrario(rs.getBoolean("saldo_contrario"));
+           
                 this.listaCuentas.add(cuenta);
             }
         }catch(SQLException e){
@@ -63,13 +60,10 @@ public class CuentasDAO {
         boolean resultado = false;
         try (Connection connection = this.conexion.getConexion(); 
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
-            preparedStatement.setString(1, cuenta.getCodigo());
+            preparedStatement.setInt(1, cuenta.getCodigocuenta());
             preparedStatement.setString(2, cuenta.getNombre());
-            preparedStatement.setString(3, cuenta.getTipo());
-            preparedStatement.setDouble(4, cuenta.getSaldo_inicial());
-            preparedStatement.setDouble(5, cuenta.getSaldo_actual());
-            preparedStatement.setDate(6,new java.sql.Date(cuenta.getCreado_en().getTime()));
-            preparedStatement.setBoolean(7, cuenta.isSaldo_contrario());
+            preparedStatement.setString(3, cuenta.getDescripcion());
+            preparedStatement.setString(4, cuenta.getTipo());
             resultado = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(CuentasDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

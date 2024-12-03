@@ -29,7 +29,7 @@ public class Conexion {
 //	private static final String jdbcPassword = ""; //CAMBIAR
         
         //PARA POSTGRES
-        private static final String jdbcURL = "jdbc:postgresql://localhost:5433/BdSistemaContable?useSSL=false";
+        private static final String jdbcURL = "jdbc:postgresql://localhost:5433/BASESIC2024?useSSL=false";
 	private static final String jdbcUsername = "postgres";
 	private static final String jdbcPassword = "root"; //CAMBIAR
 
