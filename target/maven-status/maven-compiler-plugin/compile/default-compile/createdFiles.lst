@@ -12,6 +12,7 @@ Pantallas\BalanceGeneral$1.class
 Pantallas\CatalogoDeCuentas.class
 Controlador\ControladorCuentas$4.class
 Controlador\ControladorCuentas.class
+Controlador\ControladorLibroDiario.class
 Pantallas\BalanceDeComprobacion.class
 Controlador\ControladorCuentas$2.class
 Pantallas\LibroDiario$1.class
@@ -19,8 +20,10 @@ Pantallas\LibroMayor.class
 Pantallas\BalanceGeneral.class
 Vistas\acercade.class
 Vistas\VistaCatalogoCuentas$1.class
+Pantallas\LibroDiario$2.class
 Pantallas\CierreDelEjercicio.class
 Clases\Movimientos.class
+Dao\MovimientosDao.class
 Clases\Cuentas.class
 Vistas\Vista$1.class
 Dao\CuentasDAO.class
