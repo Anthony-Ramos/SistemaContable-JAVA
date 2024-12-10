@@ -13,9 +13,7 @@ import Clases.Movimientos;
 import Clases.Partidas;
 import Conexion.Conexion;
 import java.sql.*;
-import java.util.ArrayList;
 
-import java.sql.*;
 import java.util.ArrayList;
 
 public class MovimientosDao {
@@ -33,6 +31,23 @@ public class MovimientosDao {
             + "INNER JOIN cuentas c ON c.idcuenta = m.idcuenta";
 
     private static final String SQL_INSERTAR = "INSERT INTO movimientos (idcuenta, idpartida, cargo, abono) VALUES (?, ?, ?, ?)";
+
+    // Método para obtener el último número de partida
+    public int obtenerUltimoNumeroPartida() {
+        int ultimoNumero = 0;
+        String query = "SELECT MAX(numeropartida) AS ultimoNumero FROM partida";
+
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ultimoNumero = rs.getInt("ultimoNumero");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ultimoNumero;
+    }
 
     // Método para mostrar todos los movimientos
     public ArrayList<Movimientos> mostrar() {

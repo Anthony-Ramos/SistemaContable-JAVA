@@ -7,16 +7,6 @@ package Controlador;
 import Clases.Movimientos;
 import Dao.MovimientosDao;
 import Pantallas.LibroDiario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
-
-/**
- *
- * @author impor
- */
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -52,6 +42,7 @@ public class ControladorLibroDiario implements ActionListener {
         this.frmvista.btnBuscar.addActionListener(this);
 
         mostrarDatos();  // Mostrar los datos al iniciar
+        mostrarUltimosNumerosPartida(); // Mostrar los números de las partidas
     }
 
     // Método para mostrar los movimientos en la tabla
@@ -76,6 +67,18 @@ public class ControladorLibroDiario implements ActionListener {
 
         // Actualizar la tabla
         this.frmvista.tbLibroDiario.setModel(modelo);
+    }
+
+    // Método para mostrar los últimos números de partida en los campos de texto
+    public void mostrarUltimosNumerosPartida() {
+        int ultimoNumeroPartida = dao.obtenerUltimoNumeroPartida();
+        // Si no hay ninguna partida registrada, iniciar en 1
+        int numeroActual = (ultimoNumeroPartida == 0) ? 1 : ultimoNumeroPartida + 1;
+        int numeroAnterior = ultimoNumeroPartida; // El anterior será el último número registrado
+
+        // Mostrar el número de la partida actual y anterior en los campos de texto
+        frmvista.txtNumeroActual.setText(String.valueOf(numeroActual));
+        frmvista.txtNumeroAnterior.setText(String.valueOf(numeroAnterior));
     }
 
     @Override
