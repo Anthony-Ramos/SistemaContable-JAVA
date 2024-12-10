@@ -7,9 +7,12 @@ Clases\Partidas.class
 Pantallas\LibroMayor$1.class
 Conexion\Conexion.class
 Vistas\VistaCatalogoCuentas.class
+Dao\PartidasDAO.class
 Vistas\inicio$1.class
+Controlador\ControladorPartidas$1.class
 Pantallas\BalanceGeneral$1.class
 Pantallas\CatalogoDeCuentas.class
+Pantallas\VistaPartidas$1.class
 Controlador\ControladorCuentas$4.class
 Controlador\ControladorCuentas.class
 Pantallas\BalanceDeComprobacion.class
@@ -18,6 +21,7 @@ Pantallas\LibroDiario$1.class
 Pantallas\LibroMayor.class
 Pantallas\BalanceGeneral.class
 Vistas\acercade.class
+Pantallas\VistaPartidas.class
 Vistas\VistaCatalogoCuentas$1.class
 Pantallas\CierreDelEjercicio.class
 Clases\Movimientos.class
@@ -27,4 +31,5 @@ Dao\CuentasDAO.class
 Pantallas\CatalogoDeCuentas$1.class
 Pantallas\LibroDiario.class
 Vistas\Vista.class
+Controlador\ControladorPartidas.class
 Controlador\ControladorCuentas$3.class
