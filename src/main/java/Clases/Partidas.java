@@ -15,6 +15,7 @@ public class Partidas {
     private int idpartida;
     private Date fecha;
     private String descripcion;
+    private int numeropartida;
 
     public Partidas() {
     }
@@ -41,6 +42,14 @@ public class Partidas {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getNumeropartida() {
+        return numeropartida;
+    }
+
+    public void setNumeropartida(int numeropartida) {
+        this.numeropartida = numeropartida;
     }
     
 }

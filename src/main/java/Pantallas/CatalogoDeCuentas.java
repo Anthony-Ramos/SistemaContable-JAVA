@@ -5,9 +5,7 @@
 package Pantallas;
 
 import Controlador.ControladorCuentas;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -19,9 +17,9 @@ public class CatalogoDeCuentas extends javax.swing.JFrame {
      * Creates new form CatalogoDeCuentas
      */
     public CatalogoDeCuentas() {
-        this.setLocationRelativeTo(this);
-        this.setResizable(false);
         initComponents();
+         this.setLocationRelativeTo(this);
+        this.setResizable(false);
     }
 
     /**
@@ -53,7 +51,7 @@ public class CatalogoDeCuentas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("CATALOGO DE CUENTAS");
