@@ -114,7 +114,7 @@ public class ControladorLibroDiario implements ActionListener {
         for (Movimientos movimiento : listaMovimientos) {
             // Cambiar el idpartida por el numeroPartida
             Object[] datos = {
-                movimiento.getIdpartida().getNumeroPartida(),  // Aquí se cambia idpartida por numeroPartida
+                movimiento.getIdpartida().getNumeroPartida(),
                 movimiento.getIdpartida().getFecha(),
                 movimiento.getIdpartida().getDescripcion(),
                 "$ " + movimiento.getCargo(),
@@ -124,6 +124,9 @@ public class ControladorLibroDiario implements ActionListener {
         }
 
         this.frmvista.tbLibroDiario.setModel(modelo);  // Actualizar la tabla con los nuevos datos
+
+        // Llamar a actualizarTotales después de mostrar los movimientos
+        actualizarTotales();
     }
 
     private void buscarCuenta() {
@@ -220,5 +223,14 @@ public class ControladorLibroDiario implements ActionListener {
             ex.printStackTrace();
         }
     }
-}
 
+    private void actualizarTotales() {
+        double totalCargo = dao.obtenerTotalCargoPorAnoActual();
+        double totalAbono = dao.obtenerTotalAbonoPorAnoActual();
+
+        // Mostrar los totales en los JTextField correspondientes
+        frmvista.txtTotalCargo.setText("$ " + String.format("%.2f", totalCargo));
+        frmvista.txtTotalAbono.setText("$ " + String.format("%.2f", totalAbono));
+    }
+
+}

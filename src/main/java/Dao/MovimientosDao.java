@@ -156,4 +156,37 @@ public class MovimientosDao {
         }
         return cuenta;
     }
+
+    public double obtenerTotalCargoPorAnoActual() {
+        double totalCargo = 0.0;
+        String sql = "SELECT SUM(cargo) AS totalCargo FROM movimientos m "
+                + "INNER JOIN partida p ON m.idpartida = p.idpartida "
+                + "WHERE EXTRACT(YEAR FROM p.fecha) = EXTRACT(YEAR FROM CURRENT_DATE)"; // Cambiado para PostgreSQL
+
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalCargo = rs.getDouble("totalCargo");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalCargo;
+    }
+
+    public double obtenerTotalAbonoPorAnoActual() {
+        double totalAbono = 0.0;
+        String sql = "SELECT SUM(abono) AS totalAbono FROM movimientos m "
+                + "INNER JOIN partida p ON m.idpartida = p.idpartida "
+                + "WHERE EXTRACT(YEAR FROM p.fecha) = EXTRACT(YEAR FROM CURRENT_DATE)"; // Cambiado para PostgreSQL
+
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalAbono = rs.getDouble("totalAbono");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalAbono;
+    }
+
 }
