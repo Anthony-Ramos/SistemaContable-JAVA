@@ -17,17 +17,7 @@ public class Partidas {
     private String descripcion;
     private int numeroPartida;
 
-    public Partidas() {
-    }
-
-    public int getNumeroPartida() {
-        return numeroPartida;
-    }
-
-    public void setNumeroPartida(int numeroPartida) {
-        this.numeroPartida = numeroPartida;
-    }
-
+    // Getters y Setters
     public int getIdpartida() {
         return idpartida;
     }
@@ -52,4 +42,11 @@ public class Partidas {
         this.descripcion = descripcion;
     }
 
+    public int getNumeroPartida() {
+        return numeroPartida;
+    }
+
+    public void setNumeroPartida(int numeroPartida) {
+        this.numeroPartida = numeroPartida;
+    }
 }

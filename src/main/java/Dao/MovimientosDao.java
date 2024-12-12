@@ -136,4 +136,20 @@ public class MovimientosDao {
         }
         return partida;
     }
+
+    public boolean insertarPartida(Partidas partida) {
+        String query = "INSERT INTO partida (fecha, descripcion, numeropartida) VALUES (?, ?, ?)";
+
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setDate(1, partida.getFecha());
+            ps.setString(2, partida.getDescripcion());
+            ps.setInt(3, partida.getNumeroPartida());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
