@@ -103,7 +103,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="txtComentarioPartida" min="-2" pref="233" max="-2" attributes="0"/>
+                                  <Component id="txtComentario" min="-2" pref="233" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -169,7 +169,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtComentarioPartida" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtComentario" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTotalCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTotalAbono" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -270,7 +270,7 @@
             <Property name="text" type="java.lang.String" value="Comentario"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtComentarioPartida">
+        <Component class="javax.swing.JTextField" name="txtComentario">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>

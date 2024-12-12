@@ -24,6 +24,7 @@ Vistas\VistaCatalogoCuentas$1.class
 Pantallas\LibroDiario$2.class
 Pantallas\CierreDelEjercicio.class
 Clases\Movimientos.class
+Controlador\ControladorLibroDiario$1.class
 Dao\MovimientosDao.class
 Clases\Cuentas.class
 Vistas\Vista$1.class

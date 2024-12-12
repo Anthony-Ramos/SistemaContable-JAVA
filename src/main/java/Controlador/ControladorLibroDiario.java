@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,6 +42,21 @@ public class ControladorLibroDiario implements ActionListener {
         this.modelo.addColumn("HABER");
 
         this.frmvista.tbLibroDiario.setModel(modelo);
+
+        // Agregar el MouseListener para seleccionar una fila
+        this.frmvista.tbLibroDiario.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int filaSeleccionada = frmvista.tbLibroDiario.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    // Obtener el numero de partida y la fecha de la fila seleccionada
+                    int numeroPartida = (int) frmvista.tbLibroDiario.getValueAt(filaSeleccionada, 0);
+                    Date fecha = (Date) frmvista.tbLibroDiario.getValueAt(filaSeleccionada, 1);
+                    // Buscar la partida y establecer la descripción en el txtComentario
+                    cargarDescripcionPartida(numeroPartida, fecha);
+                }
+            }
+        });
 
         // Eventos de los botones
         this.frmvista.btnAgregar.addActionListener(this);
@@ -93,6 +110,17 @@ public class ControladorLibroDiario implements ActionListener {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frmvista, "Error al inicializar la partida.");
             ex.printStackTrace();
+        }
+    }
+
+    private void cargarDescripcionPartida(int numeroPartida, Date fecha) {
+        // Buscar la partida en la base de datos usando numeroPartida y fecha
+        Partidas partida = dao.buscarPartidaPorNumeroYFecha(numeroPartida, fecha);
+        if (partida != null) {
+            // Establecer la descripción en el textField txtComentario
+            frmvista.txtComentario.setText(partida.getDescripcion());
+        } else {
+            JOptionPane.showMessageDialog(frmvista, "No se encontró la partida con el número " + numeroPartida + " y la fecha " + fecha);
         }
     }
 

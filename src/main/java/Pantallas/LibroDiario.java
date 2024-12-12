@@ -43,7 +43,7 @@ public class LibroDiario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        txtComentarioPartida = new javax.swing.JTextField();
+        txtComentario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtTotalCargo = new javax.swing.JTextField();
         txtTotalAbono = new javax.swing.JTextField();
@@ -88,7 +88,7 @@ public class LibroDiario extends javax.swing.JFrame {
 
         jLabel7.setText("Comentario");
 
-        txtComentarioPartida.setEnabled(false);
+        txtComentario.setEnabled(false);
 
         jLabel8.setText("Totales");
 
@@ -166,7 +166,7 @@ public class LibroDiario extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(31, 31, 31)
-                                .addComponent(txtComentarioPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
@@ -216,7 +216,7 @@ public class LibroDiario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtComentarioPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtTotalCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -302,7 +302,7 @@ public class LibroDiario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tbLibroDiario;
     public javax.swing.JTextField txtCodigoCuenta;
-    public javax.swing.JTextField txtComentarioPartida;
+    public javax.swing.JTextField txtComentario;
     public javax.swing.JTextField txtDescripcionCuenta;
     public javax.swing.JTextField txtMonto;
     public javax.swing.JTextField txtNumeroActual;

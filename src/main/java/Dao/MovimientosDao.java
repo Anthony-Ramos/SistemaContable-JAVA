@@ -189,4 +189,25 @@ public class MovimientosDao {
         return totalAbono;
     }
 
+    public Partidas buscarPartidaPorNumeroYFecha(int numeroPartida, Date fecha) {
+        Partidas partida = null;
+        String query = "SELECT * FROM partida WHERE numeropartida = ? AND fecha = ?";
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, numeroPartida);
+            ps.setDate(2, fecha);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    partida = new Partidas();
+                    partida.setIdpartida(rs.getInt("idpartida"));
+                    partida.setFecha(rs.getDate("fecha"));
+                    partida.setDescripcion(rs.getString("descripcion"));
+                    partida.setNumeroPartida(rs.getInt("numeropartida"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return partida;
+    }
+
 }
