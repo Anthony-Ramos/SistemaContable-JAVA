@@ -6,17 +6,26 @@ import java.sql.Date;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Marlo
  */
 public class Partidas {
+
     private int idpartida;
     private Date fecha;
     private String descripcion;
+    private int numeroPartida;
 
     public Partidas() {
+    }
+
+    public int getNumeroPartida() {
+        return numeroPartida;
+    }
+
+    public void setNumeroPartida(int numeroPartida) {
+        this.numeroPartida = numeroPartida;
     }
 
     public int getIdpartida() {
@@ -42,5 +51,5 @@ public class Partidas {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
 }
