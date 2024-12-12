@@ -108,19 +108,22 @@ public class ControladorLibroDiario implements ActionListener {
     }
 
     private void mostrarDatos() {
-        this.modelo.setRowCount(0);
-        this.listaMovimientos = this.dao.mostrar();
+        this.modelo.setRowCount(0);  // Limpiar la tabla antes de mostrar los nuevos datos
+        this.listaMovimientos = this.dao.mostrar();  // Obtener todos los movimientos desde la base de datos
+
         for (Movimientos movimiento : listaMovimientos) {
+            // Cambiar el idpartida por el numeroPartida
             Object[] datos = {
-                movimiento.getIdpartida().getIdpartida(),
+                movimiento.getIdpartida().getNumeroPartida(),  // Aquí se cambia idpartida por numeroPartida
                 movimiento.getIdpartida().getFecha(),
                 movimiento.getIdpartida().getDescripcion(),
                 "$ " + movimiento.getCargo(),
                 "$ " + movimiento.getAbono()
             };
-            this.modelo.addRow(datos);
+            this.modelo.addRow(datos);  // Agregar los datos a la tabla
         }
-        this.frmvista.tbLibroDiario.setModel(modelo);
+
+        this.frmvista.tbLibroDiario.setModel(modelo);  // Actualizar la tabla con los nuevos datos
     }
 
     private void buscarCuenta() {
@@ -218,3 +221,4 @@ public class ControladorLibroDiario implements ActionListener {
         }
     }
 }
+

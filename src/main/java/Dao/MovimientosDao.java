@@ -31,7 +31,7 @@ public class MovimientosDao {
         this.conexion = new Conexion();
     }
 
-    private static final String SQL_MOSTRAR = "SELECT p.idpartida, p.fecha, p.descripcion, c.nombre, m.cargo, m.abono "
+    private static final String SQL_MOSTRAR = "SELECT p.idpartida, p.fecha, p.descripcion, p.numeropartida, c.nombre, m.cargo, m.abono "
             + "FROM movimientos m "
             + "INNER JOIN partida p ON p.idpartida = m.idpartida "
             + "INNER JOIN cuentas c ON c.idcuenta = m.idcuenta";
@@ -44,8 +44,7 @@ public class MovimientosDao {
 
     public int obtenerUltimaPartidaFechaActual() {
         int ultimoNumero = 0;
-        try (Connection connection = conexion.getConexion();
-             PreparedStatement ps = connection.prepareStatement(SQL_OBTENER_ULTIMA_PARTIDA_FECHA)) {
+        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(SQL_OBTENER_ULTIMA_PARTIDA_FECHA)) {
             ps.setDate(1, Date.valueOf(LocalDate.now()));  // Usar la fecha actual
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -125,7 +124,8 @@ public class MovimientosDao {
                 Cuentas cuenta = new Cuentas();
                 partida.setIdpartida(rs.getInt("idpartida"));
                 partida.setFecha(rs.getDate("fecha"));
-                partida.setDescripcion(rs.getString("descripcion"));
+                partida.setDescripcion(rs.getString("nombre"));
+                partida.setNumeroPartida(rs.getInt("numeropartida")); // Agregado para evitar el error
                 cuenta.setNombre(rs.getString("nombre"));
                 movimiento.setIdpartida(partida);
                 movimiento.setIdcuenta(cuenta);
@@ -157,4 +157,3 @@ public class MovimientosDao {
         return cuenta;
     }
 }
-
