@@ -1,19 +1,25 @@
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\BalanceDeComprobacion.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\BalanceGeneral.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CatalogoDeCuentas.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Conexion\Conexion.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroMayor.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Cuentas.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\acercade.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroDiario.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\MovimientosDao.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroDiario.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\inicio.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorCuentas.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\Vista.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaCatalogoCuentas.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\CuentasDAO.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaLibroDiario.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Movimientos.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Partidas.java
-C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CierreDelEjercicio.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Clases\Cuentas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Clases\Movimientos.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Clases\Partidas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Conexion\Conexion.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorCuentas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroDiario.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroMayor.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorPartidas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Dao\CuentasDAO.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Dao\LibroMayorDAO.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Dao\MovimientosDao.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Dao\PartidasDAO.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\BalanceDeComprobacion.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\BalanceGeneral.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CatalogoDeCuentas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CierreDelEjercicio.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroDiario.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroMayor.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\VistaPartidas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\acercade.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\inicio.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\Vista.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaCatalogoCuentas.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaLibroDiario.java
+C:\Users\DELL USER\Documents\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaLibroMayor.java
