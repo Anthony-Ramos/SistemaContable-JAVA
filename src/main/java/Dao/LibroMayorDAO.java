@@ -51,4 +51,23 @@ public class LibroMayorDAO {
         }
         return listaMovimientos;
     }
+    
+    public String obtenerNombreCuentaPorCodigo(int codigoCuenta) {
+    String nombreCuenta = "";
+    String query = "SELECT nombre FROM cuentas WHERE codigocuenta = ?";
+
+    try (Connection con = conexion.getConexion();
+         PreparedStatement ps = con.prepareStatement(query)) {
+        ps.setInt(1, codigoCuenta);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            nombreCuenta = rs.getString("nombre");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return nombreCuenta;
+}
+
 }

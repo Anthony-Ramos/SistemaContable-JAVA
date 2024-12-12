@@ -48,33 +48,34 @@ public class ControladorLibroMayor implements ActionListener {
     }
 
     private void cargarMovimientos(int codigoCuenta) {
-        ArrayList<Movimientos> listaMovimientos = dao.obtenerMovimientosPorCodigoCuenta(codigoCuenta);
-        modelo.setRowCount(0); // Limpiar tabla
-        frmLibroMayor.txtCuenta.setText(""); // Limpiar campo de cuenta
+    ArrayList<Movimientos> listaMovimientos = dao.obtenerMovimientosPorCodigoCuenta(codigoCuenta);
+    modelo.setRowCount(0); // Limpiar tabla
+    
+    // Obtener el nombre de la cuenta
+    String nombreCuenta = dao.obtenerNombreCuentaPorCodigo(codigoCuenta);
+    frmLibroMayor.txtCuenta.setText("Cuenta: " + nombreCuenta); // Mostrar nombre de cuenta
 
-        double saldo = 0.0;
+    double saldo = 0.0;
 
-        for (Movimientos mov : listaMovimientos) {
-            saldo += mov.getCargo() - mov.getAbono();
-            String tipoSaldo = saldo >= 0 ? "Deudor" : "Acreedor";
-            Object[] fila = {
-                mov.getIdpartida().getFecha(),
-                mov.getIdpartida().getDescripcion(),
-                mov.getIdpartida().getNumeropartida(),
-                mov.getCargo(),
-                mov.getAbono(),
-                Math.abs(saldo), // Mostrar el saldo absoluto
-                tipoSaldo
-            };
-            modelo.addRow(fila);
-        }
-
-        if (listaMovimientos.isEmpty()) {
-            frmLibroMayor.txtCuenta.setText("No se encontraron datos.");
-        } else {
-            frmLibroMayor.txtCuenta.setText("Cuenta: " + codigoCuenta);
-        }
+    for (Movimientos mov : listaMovimientos) {
+        saldo += mov.getCargo() - mov.getAbono();
+        Object[] fila = {
+            mov.getIdpartida().getFecha(),
+            mov.getIdpartida().getDescripcion(),
+            mov.getIdmovimiento(),  // REF
+            mov.getCargo(),
+            mov.getAbono(),
+            saldo,
+            saldo >= 0 ? "Deudor" : "Acreedor"
+        };
+        modelo.addRow(fila);
     }
+
+    if (listaMovimientos.isEmpty()) {
+        frmLibroMayor.txtCuenta.setText("No se encontraron datos para el código.");
+    }
+}
+
 
     private void limpiarTabla() {
         modelo.setRowCount(0);
