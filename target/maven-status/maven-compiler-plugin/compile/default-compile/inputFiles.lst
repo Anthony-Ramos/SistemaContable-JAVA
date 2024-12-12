@@ -7,6 +7,7 @@ C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Cla
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\acercade.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroDiario.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\MovimientosDao.java
+C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\PartidasDAO.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroDiario.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\inicio.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorCuentas.java
@@ -15,5 +16,7 @@ C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vis
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\CuentasDAO.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Vistas\VistaLibroDiario.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Movimientos.java
+C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorPartidas.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Partidas.java
 C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CierreDelEjercicio.java
+C:\Users\impor\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\VistaPartidas.java
