@@ -38,47 +38,7 @@ public class MovimientosDao {
             + "INNER JOIN cuentas c ON c.idcuenta = m.idcuenta";
 
     private static final String SQL_INSERTAR = "INSERT INTO movimientos (idcuenta, idpartida, cargo, abono) VALUES (?, ?, ?, ?)";
-    private static final String SQL_INSERTAR_PARTIDA = "INSERT INTO partida (fecha, descripcion, numeropartida) VALUES (?, ?, ?)";
     private static final String SQL_OBTENER_ULTIMO_NUMERO_PARTIDA = "SELECT MAX(numeropartida) AS maxpartida FROM partida";
-
-    // Método para verificar si hay partidas
-    public boolean existenPartidas() {
-        String query = "SELECT COUNT(*) AS total FROM partida";
-        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(query)) {
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("total") > 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // Método para insertar la primera partida
-    public void insertarPrimeraPartida() {
-        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(SQL_INSERTAR_PARTIDA)) {
-            ps.setDate(1, Date.valueOf(LocalDate.now()));
-            ps.setString(2, "Partida Inicial");
-            ps.setInt(3, 1); // El número de la primera partida es 1
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Método para insertar una nueva partida
-    public void insertarPartida(Partidas partida) {
-        try (Connection connection = conexion.getConexion(); PreparedStatement ps = connection.prepareStatement(SQL_INSERTAR_PARTIDA)) {
-            ps.setDate(1, partida.getFecha()); // Fecha de la partida
-            ps.setString(2, partida.getDescripcion()); // Descripción de la partida
-            ps.setInt(3, partida.getNumeroPartida()); // Número de la partida
-            ps.executeUpdate(); // Ejecutar la consulta
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     // Método para obtener el último número de partida
     public int obtenerUltimoNumeroPartida() {

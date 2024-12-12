@@ -39,6 +39,7 @@ public class ControladorLibroDiario implements ActionListener {
     private MovimientosDao dao;
     private DefaultTableModel modelo;
     private boolean partidaTerminada; // Nuevo campo para controlar si la partida ha terminado
+    private int numeroPartidaActual; // Variable para almacenar el número de partida actual
 
     public ControladorLibroDiario() {
         this.frmvista = new LibroDiario();
@@ -105,15 +106,17 @@ public class ControladorLibroDiario implements ActionListener {
     // Método para mostrar los últimos números de partida en los campos de texto
     public void mostrarUltimosNumerosPartida() {
         int ultimoNumeroPartida = dao.obtenerUltimoNumeroPartida();
+        if (ultimoNumeroPartida == 1) {
+            ultimoNumeroPartida = 0;
+        }
 
         // Si no hay ninguna partida registrada, iniciar en 1
         // Solo incrementa el contador si la partida ha sido terminada
-        int numeroActual = (ultimoNumeroPartida == 0 || partidaTerminada) ? 1 : ultimoNumeroPartida;
-        int numeroAnterior = ultimoNumeroPartida; // El anterior será el último número registrado
+        numeroPartidaActual = (ultimoNumeroPartida == 0 || partidaTerminada) ? 1 : ultimoNumeroPartida;
 
         // Mostrar el número de la partida actual y anterior en los campos de texto
-        frmvista.txtNumeroActual.setText(String.valueOf(numeroActual));
-        frmvista.txtNumeroAnterior.setText(String.valueOf(numeroAnterior));
+        frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+        frmvista.txtNumeroAnterior.setText(String.valueOf(ultimoNumeroPartida));
     }
 
     // Método para buscar cuenta por código y mostrar la descripción
@@ -133,12 +136,6 @@ public class ControladorLibroDiario implements ActionListener {
     }
 
     private void insertarMovimiento() {
-        // Verificar si no existen partidas o si la partida está terminada
-        if (!dao.existenPartidas() || partidaTerminada) {
-            dao.insertarPrimeraPartida(); // Si no existen partidas, insertar la primera
-            partidaTerminada = false; // Después de insertar la primera partida, se marca como no terminada
-        }
-
         try {
             // Obtener datos de la vista
             int codigoCuenta = Integer.parseInt(frmvista.txtCodigoCuenta.getText());
@@ -154,16 +151,12 @@ public class ControladorLibroDiario implements ActionListener {
                 return;
             }
 
-            // Buscar la partida existente o crear una nueva
+            // Buscar la partida existente
             Partidas partida = dao.buscarPartidaPorNumeroYFecha(numeroPartida, Date.valueOf(LocalDate.now()));
 
             if (partida == null) {
-                // Si no existe la partida, crear una nueva
-                partida = new Partidas();
-                partida.setFecha(Date.valueOf(LocalDate.now()));
-                partida.setDescripcion(comentario);
-                partida.setNumeroPartida(numeroPartida);
-                dao.insertarPartida(partida);  // Insertar la nueva partida
+                JOptionPane.showMessageDialog(frmvista, "Partida no encontrada");
+                return; // Si no existe la partida, no se crea un movimiento
             }
 
             // Crear movimiento
