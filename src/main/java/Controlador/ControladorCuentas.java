@@ -77,7 +77,13 @@ public class ControladorCuentas implements ActionListener , KeyListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.frmvista.btnregistrarcuenta) {
-            Registrar();
+            if (!this.frmvista.txtcodigocuenta.getText().isEmpty() && !this.frmvista.txtdescripcion.getText().isEmpty() && !this.frmvista.txtnombrecuenta.getText().isEmpty()) {
+                if (validarEntrada()) {
+                    Registrar();
+                }
+            } else {
+                JOptionPane.showMessageDialog(frmvista, "Datos vacios");
+            }
         }
         if (e.getSource() == this.frmvista.btnmodificarcuenta) {
             Actualizar();
@@ -249,6 +255,19 @@ public class ControladorCuentas implements ActionListener , KeyListener{
             }
         });
 
+    }
+    
+     private boolean validarEntrada(){
+        int prueba = Integer.parseInt(this.frmvista.txtcodigocuenta.getText());
+        
+        if (prueba < 1) {
+            JOptionPane.showMessageDialog(frmvista, "El valor debe ser mayor a 0");
+            //this.frmvista.txtcodigocuenta.setText("");
+            limpiar();
+            return false;
+        }
+
+        return true;
     }
 
     @Override
