@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controlador;
 
 import Clases.Cuentas;
@@ -9,22 +5,9 @@ import Clases.Movimientos;
 import Clases.Partidas;
 import Dao.MovimientosDao;
 import Pantallas.LibroDiario;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +21,8 @@ public class ControladorLibroDiario implements ActionListener {
     private ArrayList<Movimientos> listaMovimientos;
     private MovimientosDao dao;
     private DefaultTableModel modelo;
-    private boolean partidaTerminada; // Nuevo campo para controlar si la partida ha terminado
-    private int numeroPartidaActual; // Variable para almacenar el número de partida actual
+    private int numeroPartidaActual;
+    private boolean partidaTerminada;
 
     public ControladorLibroDiario() {
         this.frmvista = new LibroDiario();
@@ -47,25 +30,25 @@ public class ControladorLibroDiario implements ActionListener {
         this.listaMovimientos = new ArrayList<>();
         this.dao = new MovimientosDao();
         this.modelo = new DefaultTableModel();
-        this.partidaTerminada = false; // Inicializamos como partida no terminada
+        this.partidaTerminada = false;
 
-        // Agregar columnas a la tabla
+        // Inicializar columnas de la tabla
         this.modelo.addColumn("PARTIDA");
         this.modelo.addColumn("FECHA");
         this.modelo.addColumn("CUENTA");
         this.modelo.addColumn("DEBE");
         this.modelo.addColumn("HABER");
 
-        // Asociar el modelo a la tabla
         this.frmvista.tbLibroDiario.setModel(modelo);
 
         // Eventos de los botones
         this.frmvista.btnAgregar.addActionListener(this);
         this.frmvista.btnBuscar.addActionListener(this);
-        this.frmvista.btnTerminarPartida.addActionListener(this);  // Nuevo botón para terminar partida
+        this.frmvista.btnTerminarPartida.addActionListener(this);
+        this.frmvista.btnapertura.addActionListener(this);
 
-        mostrarDatos();  // Mostrar los datos al iniciar
-        mostrarUltimosNumerosPartida(); // Mostrar los números de las partidas
+        mostrarDatos();
+        verificarPartidaExistente();
     }
 
     @Override
@@ -75,53 +58,75 @@ public class ControladorLibroDiario implements ActionListener {
         } else if (e.getSource() == frmvista.btnAgregar) {
             insertarMovimiento();
         } else if (e.getSource() == frmvista.btnTerminarPartida) {
-            terminarPartida(); // Acción para terminar la partida
+            terminarPartida();
+        } else if (e.getSource() == this.frmvista.btnapertura) {
+            inicializarPartida();
         }
     }
 
-    // Método para mostrar los movimientos en la tabla
-    public void mostrarDatos() {
-        // Limpiar el modelo antes de mostrar los nuevos datos
+    private void inicializarPartida() {
+        try {
+            // Verificamos si ya hay una partida inicial para la fecha actual
+            int ultimaPartida = dao.obtenerUltimaPartidaFechaActual();
+
+            if (ultimaPartida == 0) {
+                // No existe ninguna partida con la fecha actual, insertar partida 1
+                Partidas nuevaPartida = new Partidas();
+                nuevaPartida.setFecha(Date.valueOf(LocalDate.now()));
+                nuevaPartida.setDescripcion("");  // La descripción se puede agregar después
+                nuevaPartida.setNumeroPartida(1);
+
+                boolean resultado = dao.insertarPartida(nuevaPartida);
+                if (resultado) {
+                    numeroPartidaActual = 1;
+                    frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+                    partidaTerminada = false;
+                    JOptionPane.showMessageDialog(frmvista, "Partida 1 iniciada correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(frmvista, "Error al crear la partida 1.");
+                }
+            } else {
+                // Si ya existe la partida 1, mostrar un mensaje
+                JOptionPane.showMessageDialog(frmvista, "Ya existe la partida 1 para la fecha actual.");
+                frmvista.txtNumeroActual.setText(String.valueOf(ultimaPartida));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frmvista, "Error al inicializar la partida.");
+            ex.printStackTrace();
+        }
+    }
+
+    public void verificarPartidaExistente() {
+        int ultimaPartida = dao.obtenerUltimaPartidaFechaActual();
+        if (ultimaPartida != 0) {
+            numeroPartidaActual = ultimaPartida;
+            frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+        } else {
+            numeroPartidaActual = 1;
+            frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+        }
+    }
+
+    private void mostrarDatos() {
         this.modelo.setRowCount(0);
-
-        // Obtener los movimientos desde el DAO
         this.listaMovimientos = this.dao.mostrar();
-
-        // Llenar la tabla con los datos de los movimientos
         for (Movimientos movimiento : listaMovimientos) {
             Object[] datos = {
-                movimiento.getIdpartida().getIdpartida(), // Partida
-                movimiento.getIdpartida().getFecha(), // Fecha
-                movimiento.getIdcuenta().getNombre(), // Cuenta
-                "$ " + movimiento.getCargo(), // Cargo (Debe)
-                "$ " + movimiento.getAbono() // Abono (Haber)
+                movimiento.getIdpartida().getIdpartida(),
+                movimiento.getIdpartida().getFecha(),
+                movimiento.getIdpartida().getDescripcion(),
+                "$ " + movimiento.getCargo(),
+                "$ " + movimiento.getAbono()
             };
             this.modelo.addRow(datos);
         }
-
-        // Actualizar la tabla
         this.frmvista.tbLibroDiario.setModel(modelo);
     }
 
-    // Método para mostrar los últimos números de partida en los campos de texto
-    public void mostrarUltimosNumerosPartida() {
-        int ultimoNumeroPartida = dao.obtenerUltimoNumeroPartida();
-
-        // Si no hay ninguna partida registrada, iniciar en 1
-        // Si la partida anterior está terminada, incrementar el contador
-        numeroPartidaActual = (partidaTerminada) ? ultimoNumeroPartida + 1 : ultimoNumeroPartida;
-
-        // Mostrar el número de la partida actual y anterior en los campos de texto
-        frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
-        frmvista.txtNumeroAnterior.setText(String.valueOf(ultimoNumeroPartida));
-    }
-
-    // Método para buscar cuenta por código y mostrar la descripción
     private void buscarCuenta() {
         try {
             int codigoCuenta = Integer.parseInt(frmvista.txtCodigoCuenta.getText());
             Cuentas cuenta = dao.buscarCuentaPorCodigo(codigoCuenta);
-
             if (cuenta != null) {
                 frmvista.txtDescripcionCuenta.setText(cuenta.getNombre());
             } else {
@@ -134,38 +139,28 @@ public class ControladorLibroDiario implements ActionListener {
 
     private void insertarMovimiento() {
         try {
-            // Obtener datos de la vista
             int codigoCuenta = Integer.parseInt(frmvista.txtCodigoCuenta.getText());
             double monto = Double.parseDouble(frmvista.txtMonto.getText());
-            String comentario = frmvista.txtComentarioPartida.getText();
             int numeroPartida = Integer.parseInt(frmvista.txtNumeroActual.getText());
-            System.out.println("NUMERO DE LA PARTIDA: " + numeroPartida);
-
-            // Buscar cuenta
             Cuentas cuenta = dao.buscarCuentaPorCodigo(codigoCuenta);
             if (cuenta == null) {
                 JOptionPane.showMessageDialog(frmvista, "Cuenta no encontrada");
                 return;
             }
-
-            // Buscar la partida existente
-            Partidas partida = dao.buscarPartidaPorNumeroYFecha(numeroPartida, Date.valueOf(LocalDate.now()));
-
+            Partidas partida = dao.buscarPartidaPorNumero(numeroPartida);
             if (partida == null) {
                 JOptionPane.showMessageDialog(frmvista, "Partida no encontrada");
-                return; // Si no existe la partida, no se crea un movimiento
+                return;
             }
 
-            // Crear movimiento
             Movimientos movimiento = new Movimientos();
-            movimiento.setIdcuenta(cuenta); // Establecer la cuenta
-            movimiento.setIdpartida(partida); // Establecer la partida
+            movimiento.setIdcuenta(cuenta);
+            movimiento.setIdpartida(partida);
 
-            // Verificar si es cargo o abono
-            if (frmvista.jRadioButton1.isSelected()) { // Cargo
+            if (frmvista.jRadioButton1.isSelected()) {
                 movimiento.setCargo(monto);
                 movimiento.setAbono(0.0);
-            } else if (frmvista.jRadioButton2.isSelected()) { // Abono
+            } else if (frmvista.jRadioButton2.isSelected()) {
                 movimiento.setCargo(0.0);
                 movimiento.setAbono(monto);
             } else {
@@ -173,63 +168,53 @@ public class ControladorLibroDiario implements ActionListener {
                 return;
             }
 
-            // Insertar movimiento
             boolean resultado = dao.insertar(movimiento);
             if (resultado) {
                 mostrarDatos();
-                mostrarUltimosNumerosPartida(); // No incrementará el contador aquí
-                limpiarCampos();
                 JOptionPane.showMessageDialog(frmvista, "Movimiento insertado exitosamente");
             } else {
                 JOptionPane.showMessageDialog(frmvista, "Error al insertar movimiento");
             }
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frmvista, "Verifique los datos ingresados");
         }
     }
 
-    // Método para limpiar los campos de la vista
-    private void limpiarCampos() {
-        frmvista.txtCodigoCuenta.setText("");
-        frmvista.txtDescripcionCuenta.setText("");
-        frmvista.txtMonto.setText("");
-        frmvista.txtComentarioPartida.setText("");
-    }
-
     private void terminarPartida() {
-        // Mostrar un JOptionPane para confirmar la acción
-        int opcion = JOptionPane.showConfirmDialog(frmvista, "¿Está seguro de que quiere terminar la partida?", "Confirmar", JOptionPane.YES_NO_OPTION);
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            // Pedir descripción de la partida
+        try {
+            int numeroPartida = Integer.parseInt(frmvista.txtNumeroActual.getText());
             String descripcion = JOptionPane.showInputDialog(frmvista, "Ingrese una descripción para la partida:");
 
-            // Verificar que se haya ingresado una descripción
             if (descripcion != null && !descripcion.trim().isEmpty()) {
-                // Obtener el número de la partida actual
-                int numeroPartida = Integer.parseInt(frmvista.txtNumeroActual.getText());
-
-                // Insertar la nueva partida en la base de datos
-                Partidas nuevaPartida = new Partidas();
-                nuevaPartida.setFecha(Date.valueOf(LocalDate.now()));
-                nuevaPartida.setDescripcion(descripcion);
-                nuevaPartida.setNumeroPartida(numeroPartida);
-
-                // Insertar la partida utilizando el DAO
-                boolean resultado = dao.insertarPartida(nuevaPartida);
+                // Actualizar la partida con la descripción
+                Partidas partida = dao.buscarPartidaPorNumero(numeroPartida);
+                partida.setDescripcion(descripcion);
+                boolean resultado = dao.actualizarPartida(partida);
                 if (resultado) {
-                    // Si la partida se inserta correctamente, marcamos que la partida ha terminado
-                    partidaTerminada = true;
-                    JOptionPane.showMessageDialog(frmvista, "La partida ha terminado y se ha creado una nueva partida.");
-                    mostrarUltimosNumerosPartida(); // Actualizar el número de partida
+                    JOptionPane.showMessageDialog(frmvista, "Partida " + numeroPartida + " actualizada correctamente.");
+                    // Insertar nueva partida sin descripción
+                    Partidas nuevaPartida = new Partidas();
+                    nuevaPartida.setFecha(Date.valueOf(LocalDate.now()));
+                    nuevaPartida.setDescripcion("");  // Sin descripción
+                    nuevaPartida.setNumeroPartida(numeroPartida + 1);
+
+                    boolean resultadoNuevaPartida = dao.insertarPartida(nuevaPartida);
+                    if (resultadoNuevaPartida) {
+                        numeroPartidaActual = numeroPartida + 1;
+                        frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+                        JOptionPane.showMessageDialog(frmvista, "Partida " + (numeroPartida + 1) + " iniciada.");
+                    } else {
+                        JOptionPane.showMessageDialog(frmvista, "Error al crear la nueva partida.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(frmvista, "Error al terminar la partida.");
+                    JOptionPane.showMessageDialog(frmvista, "Error al actualizar la partida.");
                 }
             } else {
                 JOptionPane.showMessageDialog(frmvista, "Debe ingresar una descripción para la partida.");
             }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frmvista, "Ocurrió un error al terminar la partida.");
+            ex.printStackTrace();
         }
     }
-
 }
