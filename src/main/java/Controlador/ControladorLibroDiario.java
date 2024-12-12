@@ -92,8 +92,8 @@ public class ControladorLibroDiario implements ActionListener {
                 movimiento.getIdpartida().getIdpartida(), // Partida
                 movimiento.getIdpartida().getFecha(), // Fecha
                 movimiento.getIdcuenta().getNombre(), // Cuenta
-                movimiento.getCargo(), // Cargo (Debe)
-                movimiento.getAbono() // Abono (Haber)
+                "$ " + movimiento.getCargo(), // Cargo (Debe)
+                "$ " + movimiento.getAbono() // Abono (Haber)
             };
             this.modelo.addRow(datos);
         }

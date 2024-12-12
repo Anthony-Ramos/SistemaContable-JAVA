@@ -83,7 +83,7 @@ public class LibroDiario extends javax.swing.JFrame {
 
         btnBuscar.setText("BUSCAR");
 
-        jLabel4.setText("Descripcion de la cuenta");
+        jLabel4.setText("Cuenta");
 
         jLabel5.setText("Monto");
 
@@ -195,7 +195,7 @@ public class LibroDiario extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtDescripcionCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,7 +220,7 @@ public class LibroDiario extends javax.swing.JFrame {
                     .addComponent(txtTotalAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnTerminarPartida)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
