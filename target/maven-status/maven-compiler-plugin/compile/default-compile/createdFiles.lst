@@ -5,6 +5,7 @@ Pantallas\BalanceDeComprobacion$1.class
 Clases\Partidas.class
 Pantallas\LibroMayor$1.class
 Conexion\Conexion.class
+Clases\BalanceTotales.class
 Dao\PartidasDAO.class
 Controlador\ControladorPartidas$1.class
 Pantallas\BalanceGeneral$1.class
@@ -15,10 +16,13 @@ Controlador\ControladorCuentas.class
 Controlador\ControladorLibroDiario.class
 Pantallas\BalanceDeComprobacion.class
 Controlador\ControladorCuentas$2.class
+Controlador\ControladorBalanceDeComprobacion.class
 Pantallas\LibroDiario$1.class
 Pantallas\LibroMayor.class
+Dao\BalanceDeComprobacionDAO.class
 Pantallas\BalanceGeneral.class
 Pantallas\VistaPartidas.class
+Clases\BalanceComprobacion.class
 Pantallas\LibroDiario$2.class
 Pantallas\CierreDelEjercicio.class
 Clases\Movimientos.class

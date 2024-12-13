@@ -1,10 +1,14 @@
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\BalanceComprobacion.java
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\BalanceTotales.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Cuentas.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Movimientos.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Clases\Partidas.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Conexion\Conexion.java
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorBalanceDeComprobacion.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorCuentas.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroDiario.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorPartidas.java
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\BalanceDeComprobacionDAO.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\CuentasDAO.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\MovimientosDao.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\PartidasDAO.java
