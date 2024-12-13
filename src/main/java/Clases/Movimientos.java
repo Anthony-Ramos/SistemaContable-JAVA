@@ -9,11 +9,13 @@ package Clases;
  * @author Marlo
  */
 public class Movimientos {
+
     private int idmovimiento;
     private double cargo;
     private double abono;
     private Cuentas idcuenta;
     private Partidas idpartida;
+    private double saldo;
 
     public Movimientos() {
     }
@@ -57,5 +59,13 @@ public class Movimientos {
     public void setIdpartida(Partidas idpartida) {
         this.idpartida = idpartida;
     }
-    
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
 }
