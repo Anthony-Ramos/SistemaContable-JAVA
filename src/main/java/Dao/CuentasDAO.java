@@ -18,47 +18,49 @@ import javax.swing.JOptionPane;
  * @author Marlo
  */
 public class CuentasDAO {
-
     private Conexion conexion;
     private ArrayList<Cuentas> listaCuentas;
 
     public CuentasDAO() {
         this.conexion = new Conexion();
     }
-
-    //Consultas SQL
-    private static final String SQL_MOSTRAR = "SELECT * FROM cuentas ORDER BY tipo ASC, codigocuenta ASC";
-    private static final String SQL_INSERTAR = "INSERT INTO cuentas (codigocuenta, nombre, descripcion, tipo) VALUES (?, ?, ?, ?);";
     
+    //Consultas SQL
+    private static final String SQL_MOSTRAR = "SELECT * FROM cuentas ORDER BY LEFT(codigocuenta::text, 1)::integer ASC, codigocuenta ASC;";
+    private static final String SQL_INSERTAR = "INSERT INTO cuentas (codigocuenta, nombre, descripcion, tipo) VALUES (?, ?, ?, ?);";
+    private static final String SQL_ACTUALIZAR = "UPDATE cuentas SET codigocuenta = ?, nombre = ?, descripcion = ?, tipo = ? WHERE idcuenta = ?";
     private static final String SQL_ELIMINAR = "DELETE FROM cuentas WHERE idcuenta =?";
+    
 
     //METODO PARA MOSTRAR
-    public ArrayList<Cuentas> Mostrar() {
+    public ArrayList<Cuentas> Mostrar(){
         this.listaCuentas = new ArrayList<>();
-        try (Connection connection = this.conexion.getConexion(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_MOSTRAR);) {
+        try( Connection connection = this.conexion.getConexion();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_MOSTRAR);){
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 Cuentas cuenta = new Cuentas();
                 cuenta.setIdcuenta(rs.getInt("idcuenta"));
                 cuenta.setCodigocuenta(Integer.parseInt(rs.getString("codigocuenta")));
                 cuenta.setNombre(rs.getString("nombre"));
                 cuenta.setDescripcion(rs.getString("descripcion"));
                 cuenta.setTipo(rs.getString("tipo"));
-
+           
                 this.listaCuentas.add(cuenta);
             }
-        } catch (SQLException e) {
+        }catch(SQLException e){
 //            DesktopNotify.setDefaultTheme(NotifyTheme.Red);
 //            DesktopNotify.showDesktopMessage("Error", "Error en sql", DesktopNotify.ERROR, 3000);
             e.printStackTrace();
         }
         return this.listaCuentas;
     }
-
+    
 //    //METODO PARA INSERTAR
-    public boolean insertar(Cuentas cuenta) {
+    public boolean insertar(Cuentas cuenta){
         boolean resultado = false;
-        try (Connection connection = this.conexion.getConexion(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
+        try (Connection connection = this.conexion.getConexion(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
             preparedStatement.setInt(1, cuenta.getCodigocuenta());
             preparedStatement.setString(2, cuenta.getNombre());
             preparedStatement.setString(3, cuenta.getDescripcion());
@@ -71,24 +73,19 @@ public class CuentasDAO {
         }
         return resultado;
     }
-
+    
+    
     // MÉTODO PARA ACTUALIZAR UNA CUENTA
     public boolean actualizar(Cuentas cuenta) throws SQLException {
-        // Consulta SQL para actualizar
-        String SQL_ACTUALIZAR = "UPDATE public.cuentas SET codigocuenta = ?, nombre = ?, descripcion = ?, tipo = ? WHERE idcuenta = ?";
-
         try (Connection connection = this.conexion.getConexion(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ACTUALIZAR)) {
-
             // Asignar parámetros a la consulta
             preparedStatement.setInt(1, cuenta.getCodigocuenta());   // Código de la cuenta
             preparedStatement.setString(2, cuenta.getNombre());      // Nombre
             preparedStatement.setString(3, cuenta.getDescripcion()); // Descripción
             preparedStatement.setString(4, cuenta.getTipo());        // Tipo
             preparedStatement.setInt(5, cuenta.getIdcuenta());       // ID de la cuenta (WHERE)
-
             // Ejecutar la consulta
             int filasAfectadas = preparedStatement.executeUpdate();
-
             // Verificar si la actualización fue exitosa
             return filasAfectadas > 0;
 
@@ -98,7 +95,7 @@ public class CuentasDAO {
             return false;
         }
     }
-
+    
     //METODO PARA OBTENER CUENTA POR ID
     public Cuentas obtenerCuentaPorId(int idCuenta) throws SQLException {
         Cuentas cuenta = null;
@@ -123,7 +120,7 @@ public class CuentasDAO {
         return cuenta; // Retorna la cuenta o null si no se encuentra
     }
     
-        public boolean eliminar(int idCuenta) {
+    public boolean eliminar(int idCuenta) {
         boolean resultado = false;
         try (Connection connection = this.conexion.getConexion(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ELIMINAR)) {
             preparedStatement.setInt(1, idCuenta);
@@ -133,6 +130,5 @@ public class CuentasDAO {
         }
         return resultado;
     }
-    
     
 }

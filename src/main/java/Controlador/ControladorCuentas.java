@@ -9,6 +9,9 @@ import Dao.CuentasDAO;
 import Pantallas.CatalogoDeCuentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,21 +24,23 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Marlo
  */
-public class ControladorCuentas implements ActionListener {
-
+public class ControladorCuentas implements ActionListener , KeyListener{
     private CatalogoDeCuentas frmvista;
     private ArrayList<Cuentas> listaCuentas;
     private CuentasDAO dao;
     private DefaultTableModel modelo;
     private boolean funciono = false;
+    
+    
 
-    public ControladorCuentas() {
+    public ControladorCuentas(){
         this.frmvista = new CatalogoDeCuentas();
         this.frmvista.setVisible(true);
-
+        
         this.listaCuentas = new ArrayList<>();
         this.dao = new CuentasDAO();
-
+     
+        
         this.modelo = new DefaultTableModel();
         this.modelo.addColumn("Id");
         this.modelo.addColumn("CODIGO");
@@ -43,14 +48,13 @@ public class ControladorCuentas implements ActionListener {
         this.modelo.addColumn("DESCRIPCION");
         this.modelo.addColumn("TIPO");
         this.frmvista.tabla.setModel(modelo);
-
         // Ocultar la columna "Id" en la tabla
         this.frmvista.tabla.getColumnModel().getColumn(0).setMinWidth(0);
         this.frmvista.tabla.getColumnModel().getColumn(0).setMaxWidth(0);
         this.frmvista.tabla.getColumnModel().getColumn(0).setWidth(0);
-
+        
         this.frmvista.txtid.setVisible(false);
-
+        
         // Agregar MouseListener a la tabla
         this.frmvista.tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -58,17 +62,30 @@ public class ControladorCuentas implements ActionListener {
                 cargarDatosEnCampos();
             }
         });
-
         this.frmvista.btnregistrarcuenta.addActionListener(this);
         this.frmvista.btneliminarcuenta.addActionListener(this);
         this.frmvista.btnmodificarcuenta.addActionListener(this);
+        this.frmvista.btncancelar.addActionListener(this);
         mostrarDatos();
+        
+        this.frmvista.btnmodificarcuenta.setVisible(false);
+        this.frmvista.btneliminarcuenta.setVisible(false);
+        this.frmvista.btncancelar.setVisible(false);
+        agregarValidacionNumerica();
+        agregarValidacionNumerica1();
+        agregarValidacionNumerica2();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.frmvista.btnregistrarcuenta) {
-            Registrar();
+            if (!this.frmvista.txtcodigocuenta.getText().isEmpty() && !this.frmvista.txtdescripcion.getText().isEmpty() && !this.frmvista.txtnombrecuenta.getText().isEmpty()) {
+                if (validarEntrada()) {
+                    Registrar();
+                }
+            } else {
+                JOptionPane.showMessageDialog(frmvista, "Datos vacios");
+            }
         }
         if (e.getSource() == this.frmvista.btnmodificarcuenta) {
             Actualizar();
@@ -76,10 +93,14 @@ public class ControladorCuentas implements ActionListener {
         if (e.getSource() == this.frmvista.btneliminarcuenta) {
             Eliminar();
         }
+        if(e.getSource() ==this.frmvista.btncancelar){
+            ControladorCuentas c = new ControladorCuentas();
+            this.frmvista.dispose();
+        }
     }
 
     //METODO PARA MOSTRAR LOS DATOS EN LA TABLA
-    public void mostrarDatos() {
+    public void mostrarDatos(){
         this.listaCuentas = this.dao.Mostrar();
         for (Cuentas cuenta : listaCuentas) {
             Object datos[] = {
@@ -95,13 +116,12 @@ public class ControladorCuentas implements ActionListener {
     }
 
     //METODO PARA INSERTAR
-    public void Registrar() {
+    public void Registrar(){
         Cuentas cuenta = new Cuentas();
         cuenta.setCodigocuenta(Integer.parseInt(this.frmvista.txtcodigocuenta.getText()));
         cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());
         cuenta.setDescripcion(this.frmvista.txtdescripcion.getText());
         cuenta.setTipo(this.frmvista.combotipocuenta.getSelectedItem().toString());
-
         this.funciono = this.dao.insertar(cuenta);
         if (funciono) {
             //DesktopNotify.showDesktopMessage("Éxito", "Bartender registrado con éxito", DesktopNotify.SUCCESS, 3000);
@@ -112,17 +132,17 @@ public class ControladorCuentas implements ActionListener {
             //DesktopNotify.showDesktopMessage("Error", "No se pudo registrar el Bartender", DesktopNotify.ERROR, 3000);
         }
     }
-
-    public void limpiar() {
+    
+    public void limpiar(){
         this.frmvista.txtcodigocuenta.setText("");
         this.frmvista.txtnombrecuenta.setText("");
+        this.frmvista.txtdescripcion.setText("");
     }
-
+    
     // MÉTODO PARA ACTUALIZAR UNA CUENTA
     public void Actualizar() {
         // Crear un objeto de tipo Cuentas
         Cuentas cuenta = new Cuentas();
-
         // Asignar valores desde la vista al objeto
         cuenta.setCodigocuenta(Integer.parseInt(this.frmvista.txtcodigocuenta.getText())); // Código de cuenta
         cuenta.setNombre(this.frmvista.txtnombrecuenta.getText());                        // Nombre de la cuenta
@@ -140,6 +160,8 @@ public class ControladorCuentas implements ActionListener {
                 this.modelo.setRowCount(0); // Limpiar el modelo de la tabla
                 mostrarDatos();             // Mostrar los datos actualizados en la tabla
                 limpiar();                  // Limpiar los campos de entrada
+                ControladorCuentas crt = new ControladorCuentas();
+                this.frmvista.dispose();
             } else {
                 JOptionPane.showMessageDialog(frmvista, "No se pudo actualizar la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -149,8 +171,9 @@ public class ControladorCuentas implements ActionListener {
             JOptionPane.showMessageDialog(frmvista, "Error al actualizar la cuenta: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    public void Eliminar() {
+    
+    
+        public void Eliminar() {
         // Obtener el ID de la cuenta desde el campo oculto (txtid)
         int idCuenta = Integer.parseInt(this.frmvista.txtid.getText());
 
@@ -170,6 +193,8 @@ public class ControladorCuentas implements ActionListener {
             this.modelo.setRowCount(0); // Limpiar tabla
             mostrarDatos(); // Recargar datos
             limpiar(); // Limpiar campos del formulario
+            ControladorCuentas crt = new ControladorCuentas();
+            this.frmvista.dispose();
         } else {
             // Mostrar mensaje de error
             JOptionPane.showMessageDialog(
@@ -183,6 +208,10 @@ public class ControladorCuentas implements ActionListener {
 
     //metodo para cargar datos en campos
     private void cargarDatosEnCampos() {
+        this.frmvista.btnmodificarcuenta.setVisible(true);
+        this.frmvista.btnregistrarcuenta.setVisible(false);
+        this.frmvista.btneliminarcuenta.setVisible(true);
+        this.frmvista.btncancelar.setVisible(true);
         // Obtener la fila seleccionada
         int filaSeleccionada = this.frmvista.tabla.getSelectedRow();
 
@@ -199,4 +228,67 @@ public class ControladorCuentas implements ActionListener {
         }
     }
 
+    private void agregarValidacionNumerica() {
+        this.frmvista.txtcodigocuenta.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+
+    }
+    
+    private void agregarValidacionNumerica1() {
+        this.frmvista.txtnombrecuenta.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+
+    }
+    
+    private void agregarValidacionNumerica2() {
+        this.frmvista.txtdescripcion.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+
+    }
+    
+     private boolean validarEntrada(){
+        int prueba = Integer.parseInt(this.frmvista.txtcodigocuenta.getText());
+        
+        if (prueba < 1) {
+            JOptionPane.showMessageDialog(frmvista, "El valor debe ser mayor a 0");
+            //this.frmvista.txtcodigocuenta.setText("");
+            limpiar();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

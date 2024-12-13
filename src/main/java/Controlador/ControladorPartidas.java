@@ -63,7 +63,7 @@ public class ControladorPartidas implements ActionListener , KeyListener{
         this.listaPartidas = this.dao.Mostrar();
         for (Partidas partida : listaPartidas) {
             Object datos[] = {
-                partida.getNumeropartida(),
+                partida.getNumeroPartida(),
                 partida.getFecha(),
                 partida.getDescripcion()
             };
@@ -80,7 +80,7 @@ public class ControladorPartidas implements ActionListener , KeyListener{
     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
     partidas.setFecha(sqlDate);
     partidas.setDescripcion(this.frmVista.txtdescripcion.getText());
-    partidas.setNumeropartida(Integer.parseInt(this.frmVista.txtnumeropartida.getText()));
+    partidas.setNumeroPartida(Integer.parseInt(this.frmVista.txtnumeropartida.getText()));
     this.funciono = this.dao.insertar(partidas);
     if (funciono) {
         this.modelo.setRowCount(0);

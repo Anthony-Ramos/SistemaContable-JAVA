@@ -40,7 +40,7 @@ public class PartidasDAO {
                 Partidas partida = new Partidas();
                 partida.setFecha(rs.getDate("fecha"));
                 partida.setDescripcion(rs.getString("descripcion"));
-                partida.setNumeropartida(rs.getInt("numeropartida"));
+                partida.setNumeroPartida(rs.getInt("numeropartida"));
                 this.listaPartidas.add(partida);
             }
         }catch(SQLException e){
@@ -58,7 +58,7 @@ public class PartidasDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERTAR)) {
             preparedStatement.setDate(1, new java.sql.Date(partida.getFecha().getTime()));
             preparedStatement.setString(2, partida.getDescripcion());
-            preparedStatement.setInt(3, partida.getNumeropartida());
+            preparedStatement.setInt(3, partida.getNumeroPartida());
             resultado = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(CuentasDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
