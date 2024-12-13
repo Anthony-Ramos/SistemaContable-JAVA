@@ -4,6 +4,7 @@
  */
 package Pantallas;
 
+import Controlador.ControladorBalanceDeComprobacion;
 import Controlador.ControladorCuentas;
 import Controlador.ControladorIncio;
 import Controlador.ControladorLibroDiario;
@@ -19,6 +20,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(this);
+        this.setResizable(false);
     }
 
     /**
@@ -76,37 +79,29 @@ public class Menu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnbalanzacomprobacion)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnbalanzageneral))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnlibrodiario)
-                                .addGap(46, 46, 46)
-                                .addComponent(btnlibromayor))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(btncatalogo)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnbalanzacomprobacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlibromayor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlibrodiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btncatalogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnbalanzageneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnlibrodiario)
-                    .addComponent(btnlibromayor))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnbalanzacomprobacion)
-                    .addComponent(btnbalanzageneral))
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addComponent(btncatalogo)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnlibrodiario)
+                .addGap(18, 18, 18)
+                .addComponent(btnlibromayor)
+                .addGap(18, 18, 18)
+                .addComponent(btnbalanzacomprobacion)
+                .addGap(18, 18, 18)
+                .addComponent(btnbalanzageneral)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,11 +123,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnlibrodiarioActionPerformed
 
     private void btnlibromayorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibromayorActionPerformed
-        
+             
     }//GEN-LAST:event_btnlibromayorActionPerformed
 
     private void btnbalanzacomprobacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbalanzacomprobacionActionPerformed
-        
+       
     }//GEN-LAST:event_btnbalanzacomprobacionActionPerformed
 
     private void btncatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncatalogoActionPerformed
