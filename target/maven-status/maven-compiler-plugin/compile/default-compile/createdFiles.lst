@@ -1,4 +1,6 @@
 Pantallas\LibroDiario$3.class
+Pantallas\Menu$2.class
+Pantallas\Menu.class
 Controlador\ControladorCuentas$1.class
 Pantallas\CierreDelEjercicio$1.class
 Pantallas\BalanceDeComprobacion$1.class
@@ -6,7 +8,9 @@ Clases\Partidas.class
 Pantallas\LibroMayor$1.class
 Conexion\Conexion.class
 Clases\BalanceTotales.class
+Controlador\ControladorIncio.class
 Dao\PartidasDAO.class
+Pantallas\Menu$5.class
 Controlador\ControladorPartidas$1.class
 Pantallas\BalanceGeneral$1.class
 Pantallas\CatalogoDeCuentas.class
@@ -23,7 +27,9 @@ Dao\BalanceDeComprobacionDAO.class
 Pantallas\BalanceGeneral.class
 Pantallas\VistaPartidas.class
 Clases\BalanceComprobacion.class
+Pantallas\Menu$3.class
 Pantallas\LibroDiario$2.class
+Pantallas\Menu$1.class
 Pantallas\CierreDelEjercicio.class
 Clases\Movimientos.class
 Controlador\ControladorLibroDiario$1.class
@@ -34,3 +40,4 @@ Pantallas\CatalogoDeCuentas$1.class
 Pantallas\LibroDiario.class
 Controlador\ControladorPartidas.class
 Controlador\ControladorCuentas$3.class
+Pantallas\Menu$4.class

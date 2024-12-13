@@ -6,6 +6,7 @@ C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Cla
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Conexion\Conexion.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorBalanceDeComprobacion.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorCuentas.java
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorIncio.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorLibroDiario.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Controlador\ControladorPartidas.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Dao\BalanceDeComprobacionDAO.java
@@ -18,4 +19,5 @@ C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pan
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\CierreDelEjercicio.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroDiario.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\LibroMayor.java
+C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\Menu.java
 C:\Users\Marlo\OneDrive\Documentos\GitHub\SistemaContable-JAVA\src\main\java\Pantallas\VistaPartidas.java
