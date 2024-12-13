@@ -60,7 +60,12 @@ public class CatalogoDeCuentas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("CATALOGO DE CUENTAS");
 
-        combotipocuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "ACTIVO CORRIENTE", "ACTIVO NO CORRIENTE", "PASIVO", "PASIVO CORRIENTE", "PASIVO NO CORRIENTE", "PATRIMONIO", "GASTOS", " " }));
+        combotipocuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "ACTIVO CORRIENTE", "ACTIVO NO CORRIENTE", "PASIVO", "PASIVO CORRIENTE", "PASIVO NO CORRIENTE", "PATRIMONIO", "GASTOS", "CAPITAL CONTABLE", "COSTOS", " " }));
+        combotipocuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combotipocuentaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Codigo");
@@ -187,6 +192,10 @@ public class CatalogoDeCuentas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void combotipocuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combotipocuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combotipocuentaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -31,10 +31,11 @@ public class MovimientosDao {
         this.conexion = new Conexion();
     }
 
-    private static final String SQL_MOSTRAR = "SELECT p.idpartida, p.fecha, p.descripcion, p.numeropartida, c.nombre, m.cargo, m.abono "
-            + "FROM movimientos m "
-            + "INNER JOIN partida p ON p.idpartida = m.idpartida "
-            + "INNER JOIN cuentas c ON c.idcuenta = m.idcuenta";
+    private static final String SQL_MOSTRAR = "SELECT p.idpartida, p.fecha, p.descripcion, p.numeropartida, c.nombre, m.cargo, m.abono \n"
+            + "FROM movimientos m \n"
+            + "INNER JOIN partida p ON p.idpartida = m.idpartida \n"
+            + "INNER JOIN cuentas c ON c.idcuenta = m.idcuenta \n"
+            + "ORDER BY p.idpartida, m.idmovimiento ASC;";
 
     private static final String SQL_INSERTAR = "INSERT INTO movimientos (idcuenta, idpartida, cargo, abono) VALUES (?, ?, ?, ?)";
     private static final String SQL_OBTENER_ULTIMA_PARTIDA_FECHA = "SELECT MAX(numeropartida) AS maxpartida FROM partida WHERE fecha = ?";

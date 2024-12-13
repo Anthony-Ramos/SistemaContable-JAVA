@@ -74,6 +74,7 @@ public class ControladorLibroDiario implements ActionListener {
             buscarCuenta();
         } else if (e.getSource() == frmvista.btnAgregar) {
             insertarMovimiento();
+            limpiar();
         } else if (e.getSource() == frmvista.btnTerminarPartida) {
             terminarPartida();
             ControladorLibroDiario crt = new ControladorLibroDiario();
@@ -278,6 +279,14 @@ public class ControladorLibroDiario implements ActionListener {
         // Mostrar los totales en los JTextField correspondientes
         frmvista.txtTotalCargo.setText("$ " + String.format("%.2f", totalCargo));
         frmvista.txtTotalAbono.setText("$ " + String.format("%.2f", totalAbono));
+    }
+    
+    public void limpiar(){
+        this.frmvista.txtCodigoCuenta.setText("");
+        this.frmvista.txtDescripcionCuenta.setText("");
+        this.frmvista.txtMonto.setText("");
+        this.frmvista.jRadioButton1.setSelected(false);
+        this.frmvista.jRadioButton2.setSelected(false);
     }
 
 }

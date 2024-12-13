@@ -45,10 +45,10 @@ public class ControladorBalanceDeComprobacion {
         for (BalanceComprobacion balance : this.listaBalanza) {
             Object datos[] = {
                 balance.getNombreCuenta(),
-                balance.getDebe(),
-                balance.getHaber(),
-                balance.getSaldoDeudor(),
-                balance.getSaldoAcreedor()
+                "$ " + balance.getDebe(),
+                "$ " + balance.getHaber(),
+                "$ " + balance.getSaldoDeudor(),
+                "$ " +balance.getSaldoAcreedor()
             };
             this.modelo.addRow(datos);
         }
@@ -58,9 +58,9 @@ public class ControladorBalanceDeComprobacion {
     // MÉTODO PARA MOSTRAR LOS TOTALES 
     public void mostrarTotales() {
         BalanceTotales totales = this.dao.mostrarTotales();
-        this.frmVista.txtdebe.setText(String.valueOf(totales.getTotalDebe()));
-        this.frmVista.txthaber.setText(String.valueOf(totales.getTotalHaber()));
-        this.frmVista.txtdeudor.setText(String.valueOf(totales.getTotalSaldoDeudor()));
-        this.frmVista.txtacreedor.setText(String.valueOf(totales.getTotalSaldoAcreedor()));
+        this.frmVista.txtdebe.setText("$ " + String.valueOf(totales.getTotalDebe()));
+        this.frmVista.txthaber.setText("$ " + String.valueOf(totales.getTotalHaber()));
+        this.frmVista.txtdeudor.setText("$ " + String.valueOf(totales.getTotalSaldoDeudor()));
+        this.frmVista.txtacreedor.setText("$ " + String.valueOf(totales.getTotalSaldoAcreedor()));
     }
 }

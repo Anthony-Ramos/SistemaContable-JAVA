@@ -165,7 +165,7 @@
         <Component class="javax.swing.JComboBox" name="combotipocuenta">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
+              <StringArray count="11">
                 <StringItem index="0" value="ACTIVO"/>
                 <StringItem index="1" value="ACTIVO CORRIENTE"/>
                 <StringItem index="2" value="ACTIVO NO CORRIENTE"/>
@@ -174,10 +174,15 @@
                 <StringItem index="5" value="PASIVO NO CORRIENTE"/>
                 <StringItem index="6" value="PATRIMONIO"/>
                 <StringItem index="7" value="GASTOS"/>
-                <StringItem index="8" value=" "/>
+                <StringItem index="8" value="CAPITAL CONTABLE"/>
+                <StringItem index="9" value="COSTOS"/>
+                <StringItem index="10" value=" "/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combotipocuentaActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
