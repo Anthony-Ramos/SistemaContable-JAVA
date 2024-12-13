@@ -52,6 +52,7 @@ public class LibroDiario extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         btnTerminarPartida = new javax.swing.JButton();
         btnapertura = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +71,7 @@ public class LibroDiario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbLibroDiario);
 
+        txtNumeroActual.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtNumeroActual.setEnabled(false);
 
         jLabel1.setText("Número de partida");
@@ -88,12 +90,15 @@ public class LibroDiario extends javax.swing.JFrame {
 
         jLabel7.setText("Comentario");
 
+        txtComentario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtComentario.setEnabled(false);
 
         jLabel8.setText("Totales");
 
+        txtTotalCargo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTotalCargo.setEnabled(false);
 
+        txtTotalAbono.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTotalAbono.setEnabled(false);
 
         txtDescripcionCuenta.setEnabled(false);
@@ -118,6 +123,9 @@ public class LibroDiario extends javax.swing.JFrame {
 
         btnapertura.setText("Aperturar Partida Uno");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel2.setText("LIBRO DIRARIO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,25 +148,20 @@ public class LibroDiario extends javax.swing.JFrame {
                             .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jRadioButton2)
-                                .addComponent(txtDescripcionCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDescripcionCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNumeroActual, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(btnBuscar))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAgregar))
-                                .addComponent(btnapertura)))
+                            .addComponent(btnBuscar)
+                            .addComponent(btnAgregar))
                         .addGap(63, 63, 63))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(jLabel1)
-                        .addGap(69, 69, 69)
-                        .addComponent(txtNumeroActual, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(187, 187, 187)
+                        .addComponent(btnapertura))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -177,14 +180,21 @@ public class LibroDiario extends javax.swing.JFrame {
                                         .addComponent(txtTotalAbono, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnTerminarPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(252, 252, 252))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(btnapertura))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -206,9 +216,7 @@ public class LibroDiario extends javax.swing.JFrame {
                             .addComponent(jRadioButton2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBuscar)
-                        .addGap(8, 8, 8)
-                        .addComponent(btnapertura)
-                        .addGap(70, 70, 70)
+                        .addGap(105, 105, 105)
                         .addComponent(btnAgregar)
                         .addGap(1, 1, 1)))
                 .addGap(42, 42, 42)
@@ -222,7 +230,7 @@ public class LibroDiario extends javax.swing.JFrame {
                     .addComponent(txtTotalAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnTerminarPartida)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +298,7 @@ public class LibroDiario extends javax.swing.JFrame {
     public javax.swing.JButton btnapertura;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

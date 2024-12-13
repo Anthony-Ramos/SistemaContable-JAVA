@@ -26,7 +26,7 @@ public class CuentasDAO {
     }
     
     //Consultas SQL
-    private static final String SQL_MOSTRAR = "SELECT * FROM cuentas";
+    private static final String SQL_MOSTRAR = "SELECT * FROM cuentas ORDER BY LEFT(codigocuenta::text, 1)::integer ASC, codigocuenta ASC;";
     private static final String SQL_INSERTAR = "INSERT INTO cuentas (codigocuenta, nombre, descripcion, tipo) VALUES (?, ?, ?, ?);";
     private static final String SQL_ACTUALIZAR = "UPDATE cuentas SET codigocuenta = ?, nombre = ?, descripcion = ?, tipo = ? WHERE idcuenta = ?";
     private static final String SQL_ELIMINAR = "DELETE FROM cuentas WHERE idcuenta =?";

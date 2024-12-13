@@ -76,10 +76,14 @@ public class ControladorLibroDiario implements ActionListener {
             insertarMovimiento();
         } else if (e.getSource() == frmvista.btnTerminarPartida) {
             terminarPartida();
+            ControladorLibroDiario crt = new ControladorLibroDiario();
+            this.frmvista.dispose();
         } else if (e.getSource() == this.frmvista.btnapertura) {
             inicializarPartida();
         }
     }
+    
+    
 
     private void inicializarPartida() {
         try {
@@ -124,12 +128,27 @@ public class ControladorLibroDiario implements ActionListener {
         }
     }
 
+//    public void verificarPartidaExistente() {
+//        int ultimaPartida = dao.obtenerUltimaPartidaFechaActual();
+//        if (ultimaPartida != 0) {
+//            numeroPartidaActual = ultimaPartida;
+//            frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+//        } else {
+//            numeroPartidaActual = 1;
+//            frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
+//        }
+//    }
+    
     public void verificarPartidaExistente() {
         int ultimaPartida = dao.obtenerUltimaPartidaFechaActual();
         if (ultimaPartida != 0) {
+            // Si existe una partida, ocultamos el botón de apertura
+            frmvista.btnapertura.setVisible(false);  // Ocultamos el botón si ya existe una partida
             numeroPartidaActual = ultimaPartida;
             frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
         } else {
+            // Si no existe ninguna partida, mostramos el botón de apertura
+            frmvista.btnapertura.setVisible(true);   // Mostramos el botón si no existe ninguna partida
             numeroPartidaActual = 1;
             frmvista.txtNumeroActual.setText(String.valueOf(numeroPartidaActual));
         }

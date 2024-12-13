@@ -65,10 +65,12 @@ public class ControladorCuentas implements ActionListener , KeyListener{
         this.frmvista.btnregistrarcuenta.addActionListener(this);
         this.frmvista.btneliminarcuenta.addActionListener(this);
         this.frmvista.btnmodificarcuenta.addActionListener(this);
+        this.frmvista.btncancelar.addActionListener(this);
         mostrarDatos();
         
         this.frmvista.btnmodificarcuenta.setVisible(false);
         this.frmvista.btneliminarcuenta.setVisible(false);
+        this.frmvista.btncancelar.setVisible(false);
         agregarValidacionNumerica();
         agregarValidacionNumerica1();
         agregarValidacionNumerica2();
@@ -90,6 +92,10 @@ public class ControladorCuentas implements ActionListener , KeyListener{
         }
         if (e.getSource() == this.frmvista.btneliminarcuenta) {
             Eliminar();
+        }
+        if(e.getSource() ==this.frmvista.btncancelar){
+            ControladorCuentas c = new ControladorCuentas();
+            this.frmvista.dispose();
         }
     }
 
@@ -205,6 +211,7 @@ public class ControladorCuentas implements ActionListener , KeyListener{
         this.frmvista.btnmodificarcuenta.setVisible(true);
         this.frmvista.btnregistrarcuenta.setVisible(false);
         this.frmvista.btneliminarcuenta.setVisible(true);
+        this.frmvista.btncancelar.setVisible(true);
         // Obtener la fila seleccionada
         int filaSeleccionada = this.frmvista.tabla.getSelectedRow();
 
