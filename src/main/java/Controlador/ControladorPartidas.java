@@ -74,22 +74,7 @@ public class ControladorPartidas implements ActionListener, KeyListener {
     }
 
     public void Registrar() {
-    Partidas partidas = new Partidas();
-    
-    // Convertir java.util.Date a java.sql.Date
-    java.util.Date utilDate = this.frmVista.calendario.getDatoFecha();
-    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-    partidas.setFecha(sqlDate);
-    partidas.setDescripcion(this.frmVista.txtdescripcion.getText());
-    partidas.setNumeroPartida(Integer.parseInt(this.frmVista.txtnumeropartida.getText()));
-    this.funciono = this.dao.insertar(partidas);
-    if (funciono) {
-        this.modelo.setRowCount(0);
-        mostrarDatos();
-        limpiar();
-    } else {
-    }
-}
+        Partidas partidas = new Partidas();
 
         // Convertir java.util.Date a java.sql.Date
         java.util.Date utilDate;
@@ -97,7 +82,7 @@ public class ControladorPartidas implements ActionListener, KeyListener {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         partidas.setFecha(sqlDate);
         partidas.setDescripcion(this.frmVista.txtdescripcion.getText());
-        partidas.setNumeropartida(Integer.parseInt(this.frmVista.txtnumeropartida.getText()));
+        partidas.setNumeroPartida(Integer.parseInt(this.frmVista.txtnumeropartida.getText()));
         this.funciono = this.dao.insertar(partidas);
         if (funciono) {
             this.modelo.setRowCount(0);

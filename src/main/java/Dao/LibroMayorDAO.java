@@ -38,7 +38,7 @@ public class LibroMayorDAO {
                 Partidas partida = new Partidas();
                 partida.setFecha(rs.getDate("fecha"));
                 partida.setDescripcion(rs.getString("descripcion"));
-                partida.setNumeropartida(rs.getInt("numeropartida"));
+                partida.setNumeroPartida(rs.getInt("numeropartida"));
 
                 movimiento.setIdpartida(partida);
                 movimiento.setCargo(rs.getDouble("cargo"));

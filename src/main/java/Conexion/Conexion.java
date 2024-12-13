@@ -28,7 +28,7 @@ public class Conexion {
 //	private static final String jdbcPassword = ""; //CAMBIAR
     
         //PARA POSTGRES
-        private static final String jdbcURL = "jdbc:postgresql://localhost:5433/BDSIC?useSSL=false";//CAMBIAR
+        private static final String jdbcURL = "jdbc:postgresql://localhost:5433/SIC2024?useSSL=false";//CAMBIAR
 	private static final String jdbcUsername = "postgres";
 	private static final String jdbcPassword = "root"; //CAMBIAR
 
