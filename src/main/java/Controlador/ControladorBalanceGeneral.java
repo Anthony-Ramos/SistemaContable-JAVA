@@ -60,8 +60,4 @@ public class ControladorBalanceGeneral {
         // Agregar total al final del grupo
         modelo.addRow(new Object[]{"TOTAL " + titulo, "", totalPorGrupo});
     }
-
-    public static void main(String[] args) {
-        new ControladorBalanceGeneral();
-    }
 }

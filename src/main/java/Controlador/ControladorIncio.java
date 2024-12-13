@@ -35,7 +35,7 @@ public class ControladorIncio implements  ActionListener{
         }else if(e.getSource()==this.frmVista.btnbalanzacomprobacion){
             ControladorBalanceDeComprobacion crt1 = new ControladorBalanceDeComprobacion();
         }else if(e.getSource()==this.frmVista.btnbalanzageneral){
-            
+            ControladorBalanceGeneral crt4 = new ControladorBalanceGeneral();
         }else if(e.getSource()==this.frmVista.btnlibrodiario){
             ControladorLibroDiario crt2 = new ControladorLibroDiario();
         }else if(e.getSource()==this.frmVista.btnlibromayor){
